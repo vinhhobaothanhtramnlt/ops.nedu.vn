@@ -1,0 +1,21 @@
+name: Sync to nedu-ops Repo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Lab repo (full history)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Push to incoming nedu-ops repo
+        run: |
+          git remote add org https://x-access-token:${{ secrets.ORG_SYNC_TOKEN }}@github.com/NLH-NEDU-LABS/nedu-ops.git
+          git push org main:incoming
