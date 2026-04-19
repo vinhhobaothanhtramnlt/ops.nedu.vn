@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/useAuthStore'
 
 const IS_MOCK = import.meta.env.VITE_ENABLE_MOCKING === 'true'
 
 export const LoginPage: React.FC = () => {
-  const { loginWithGoogle, loginDev } = useAuthStore()
+  const navigate = useNavigate()
+  const { user, loginWithGoogle, loginDev } = useAuthStore()
   const [loading, setLoading] = useState(false)
+
+  // Khi user được set (sau login thành công), redirect sang dashboard
+  useEffect(() => {
+    if (user) navigate('/dashboard', { replace: true })
+  }, [user, navigate])
 
   const handleGoogle = async () => {
     setLoading(true)
