@@ -7,8 +7,9 @@ export const ProtectedRoute: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+        <div className="pl-spin" />
+        <span style={{ color: 'var(--stone)', fontSize: 13 }}>Đang tải…</span>
       </div>
     )
   }

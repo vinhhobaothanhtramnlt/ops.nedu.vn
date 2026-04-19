@@ -5,22 +5,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ProtectedRoute } from './ProtectedRoute'
 import { LoginPage } from '@modules/auth/pages/LoginPage'
 import { DashboardPage } from '@modules/ops/components/dashboard/DashboardPage'
-import { TopBar } from '@shared/components/TopBar'
-import { KpiPanel } from '@modules/ops/components/kpi/KpiPanel'
 import { useAuthStore } from '@modules/auth/stores/useAuthStore'
 import { queryClient } from '@shared/config/query-client'
 
-const AppLayout: React.FC = () => {
-  const [showKpi, setShowKpi] = React.useState(false)
-
-  return (
-    <div className="flex flex-col h-screen overflow-hidden bg-slate-900">
-      <TopBar onKpiClick={() => setShowKpi(true)} />
-      <DashboardPage />
-      {showKpi && <KpiPanel onClose={() => setShowKpi(false)} />}
-    </div>
-  )
-}
+// DashboardPage owns the full layout (topbar + panels + modals)
+const AppLayout: React.FC = () => <DashboardPage />
 
 const AppInit: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { initialize } = useAuthStore()
