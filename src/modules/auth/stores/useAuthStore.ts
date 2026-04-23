@@ -33,14 +33,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   initialize: async () => {
     set({ isLoading: true })
 
-    // ── Mock mode: skip Supabase, MSW trả mock user dựa vào localStorage ──
+    // ── Mock mode: chỉ auto-login nếu đã có mock_uid (đã từng đăng nhập) ──
     if (IS_MOCK) {
-      // Đảm bảo có mock UID trong localStorage
-      if (!localStorage.getItem(MOCK_UID_KEY)) {
-        localStorage.setItem(MOCK_UID_KEY, DEFAULT_MOCK_ID)
+      if (localStorage.getItem(MOCK_UID_KEY)) {
+        const user = await fetchMockUser()
+        set({ user, isLoading: false })
+      } else {
+        set({ user: null, isLoading: false })
       }
-      const user = await fetchMockUser()
-      set({ user, isLoading: false })
       return
     }
 
