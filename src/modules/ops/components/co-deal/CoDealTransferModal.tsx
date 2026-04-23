@@ -99,14 +99,14 @@ export const CoDealTransferModal: React.FC<CoDealTransferModalProps> = ({ lead, 
           {activeTab === 'codeal' ? (
             <CoDealTab
               consultants={consultants}
-              currentUserId={user?.id || ''}
+              currentUserId={user?.person_id || ''}
               onSubmit={(data) => coDealMutation.mutate(data)}
               isLoading={coDealMutation.isPending}
             />
           ) : (
             <TransferTab
               consultants={consultants}
-              currentUserId={user?.id || ''}
+              currentUserId={user?.person_id || ''}
               onSubmit={(data) => transferMutation.mutate(data)}
               isLoading={transferMutation.isPending}
             />

@@ -288,7 +288,7 @@ export const DashboardPage: React.FC = () => {
   }
 
   function confirmEnroll() {
-    const t = todos.find(x => x.id === enrollId ?? activeId);
+    const t = todos.find(x => x.id === (enrollId || activeId));
     if (!t) return;
     setTodos(prev => prev.map(x => x.id === t.id
       ? { ...x, stage: 5, done: true, timeline: [{ icon: '✅', action: 'Enrolled!', date: nowStr(), who: 'Linh Nguyễn', note: 'Đã xác nhận enrolled thành công.' }, ...x.timeline] }
